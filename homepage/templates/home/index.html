@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% load add_class %}
+{% block title %}Home Template{% endblock %}
+{% block head %}
+	{{ block.super }}
+	<link href="{% static 'blog/css/blog.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+	{% for link in links %}
+		<p><a href="{{ link.url }}">{{ link.title}} </a></p>
+	{% endfor %}
+    </div>
+    <div class="col-sm-8 text-left">
+
+    </div>
+    <div class="col-sm-8 text-left">
+	{% for introduction in introductions %}
+      <h1>{{ introduction.title }}</h1>
+      <p>{{ introduction.body|safe }}</p>
+      <hr>
+	  {% empty %}
+	  <h1>Welcome</h1>
+	  <p> {% lorem 3 p%}
+	  <hr>
+	 {% endfor %}
+	 {% for newsitem in news %}
+      <h3>{{ newsitem.title }}</h3>
+      <p>{{ newsitem.body|safe }}</p>
+	 {% endfor %}
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+    <script type="text/javascript" src="{% static 'blog/js/comments.js' %}"></script>
+{% endblock %}
